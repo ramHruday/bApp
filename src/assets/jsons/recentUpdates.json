@@ -1,0 +1,41 @@
+{
+    "status": "success",
+    "message": "success",
+    "data": [
+        {
+            "message": "Fast selling - <b>Indoasian Switches</b> , <b>Legrand Mylink</b>",
+            "msgType": "sales_success",
+            "msgLink": ""
+        },
+        {
+            "msgType": "inventory_danger",
+            "message": "Ran out of Legrand Mylink 2-way Switches 2 days ago.",
+            "msgLink": ""
+        },
+        {
+            "msgType": "inventory_alert",
+            "message": "Running out of Indoasian 2-way Switches.",
+            "msgLink": ""
+        },
+        {
+            "msgType": "sales_alert",
+            "message": "Sales less by 10% from last month",
+            "msgLink": ""
+        },
+        {
+            "msgType": "sales_danger",
+            "message": "Sales less by 70% from last week",
+            "msgLink": ""
+        },
+        {
+            "msgType": "agent_success",
+            "message": "Top Agent - <b>Mr. Ram</b>",
+            "msgLink": ""
+        },
+        {
+            "msgType": "inventory_success",
+            "message": "Attention Needed for Inventory set-up !",
+            "msgLink": "/inventory"
+        }
+    ]
+}

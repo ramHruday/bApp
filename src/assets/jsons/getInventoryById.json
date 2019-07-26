@@ -1,0 +1,25 @@
+{
+    "status": "success",
+    "message": "success",
+    "data": {
+        "location_name": "Retail Shop",
+        "location_id": "main_location",
+        "supplier_name": "Legrand Retail",
+        "supplier_id": "Legrand_Retail",
+        "product_name": "Switch",
+        "product_id": "Switch_2-way",
+        "sub_type": "2-way",
+        "brand_id": "Indoasian_Aero",
+        "brand_series": "Mylink",
+        "brand_name": "Legrand Ltd",
+        "last_updated": "June 12, 2019",
+        "sub_details": "1089234",
+        "quantity": 23,
+        "kpi": {
+            "min": 30,
+            "max": 73
+        },
+        "rate": 454,
+        "id": "Switch_2-way_Legrand_Aero"
+    }
+}

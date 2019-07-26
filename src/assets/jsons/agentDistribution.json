@@ -1,0 +1,53 @@
+{
+    "status": "success",
+    "message": "success",
+    "data": {
+        "agentDistributionOneYear": [
+            {
+                "value": 335,
+                "name": "Agent 1"
+            },
+            {
+                "value": 310,
+                "name": "Agent 2"
+            },
+            {
+                "value": 234,
+                "name": "Agent 3"
+            },
+            {
+                "value": 135,
+                "name": "Agent 4"
+            }
+        ],
+        "agentDistributionThreeMonths": [
+            {
+                "value": 335,
+                "name": "Agent 1",
+                "selected": true
+            },
+            {
+                "value": 679,
+                "name": "Agent 2"
+            },
+            {
+                "value": 1548,
+                "name": "Agent 3"
+            }
+        ],
+        "xAxis": [
+            "Agent 1",
+            "Agent 2",
+            "Agent 3",
+            "Agent 4",
+            "Agent 5"
+        ],
+        "colorPallette": [
+            "#003366",
+            "#006699",
+            "#4cabce",
+            "#e5323e",
+            "#b5323e"
+        ]
+    }
+}

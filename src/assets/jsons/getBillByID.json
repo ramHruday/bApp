@@ -1,0 +1,105 @@
+{
+    "status": "success",
+    "message": "success",
+    "billQuote": [
+        {
+            "sub_type": "2-way",
+            "product_name": "Switch",
+            "brand": "Legrand_Mylink",
+            "quantity": 2,
+            "rate": 568,
+            "mrp":600,
+            "discount":23,
+            "amount":13604,
+            "inventory_id": "Switch_2-way_Legrand"
+        },
+        {
+            "sub_type": "2-pin",
+            "product_name": "Socket",
+            "brand": "Indoasian_Aero",
+            "quantity": 73,
+            "rate": 458,
+            "mrp":500,
+            "amount":13604,
+            "discount":23,
+            "inventory_id": "Socket_2-pin_Indoasian"
+        },
+        {
+            "sub_type": "2-pin",
+            "product_name": "Socket",
+            "brand": "Indoasian_Aero",
+            "quantity": 73,
+            "rate": 458,
+            "mrp":500,
+            "amount":13604,
+            "discount":23,
+            "inventory_id": "Socket_-pin_Indoasian"
+        },
+        {
+            "sub_type": "2-pin",
+            "product_name": "Socket",
+            "brand": "Indoasian_Aero",
+            "quantity": 73,
+            "rate": 458,
+            "mrp":500,
+            "amount":13604,
+            "discount":23,
+            "inventory_id": "Soket_2-pin_Indoasian"
+        },
+        {
+            "sub_type": "2-pin",
+            "product_name": "Socket",
+            "brand": "Indoasian_Aero",
+            "quantity": 73,
+            "rate": 458,
+            "mrp":500,
+            "amount":13604,
+            "discount":23,
+            "inventory_id": "Socket_2pin_Indoasian"
+        },
+        {
+            "sub_type": "2-pin",
+            "product_name": "Socket",
+            "brand": "Indoasian_Aero",
+            "quantity": 73,
+            "rate": 458,
+            "mrp":500,
+            "amount":13604,
+            "discount":23,
+            "inventory_id": "Socket_2-pin_Indoaian"
+        },
+        {
+            "sub_type": "2-pin",
+            "product_name": "Socket",
+            "brand": "Indoasian_Aero",
+            "quantity": 73,
+            "rate": 458,
+            "mrp":500,
+            "amount":13604,
+            "discount":23,
+            "inventory_id": "-pin_Indoasian"
+        },
+        {
+            "sub_type": "2-pin",
+            "product_name": "Socket",
+            "brand": "Indoasian_Aero",
+            "quantity": 73,
+            "rate": 458,
+            "mrp":500,
+            "amount":13604,
+            "discount":23,
+            "inventory_id": "-edf"
+        },
+        {
+            "sub_type": "2-pin",
+            "product_name": "Socket",
+            "brand": "Indoasian_Aero",
+            "quantity": 73,
+            "rate": 458,
+            "mrp":500,
+            "amount":13604,
+            "discount":23,
+            "inventory_id": "-pin_Indoasian0p"
+        }
+    ]
+}

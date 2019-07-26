@@ -1,0 +1,18 @@
+{
+    "status": "success",
+    "message": "success",
+    "data": {
+      "rows": [
+        {
+          "supplier": "Legrand Retail",
+          "contact":"Pune World Trade center",
+          "id": "Legrand_Retail"
+        },
+        {
+          "supplier": "Indoasian Retail",
+          "contact":"Visakhapatnam World Trade center",
+          "id": "Indoasian_Retail"
+        }
+      ]
+    }
+  }

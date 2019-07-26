@@ -1,0 +1,127 @@
+{
+    "status": "success",
+    "message": "success",
+    "data": {        
+        "archivedBills":[
+            {
+                "bill_id":"12244",
+                "bill_customer":"ZS Moscow",
+                "customer_contact":"90334444444",
+                "bill_agent":"KS",
+                "bill_date":"23/05/2019",
+                "bill_total":"3304000",
+                "billed_by":"Ram",
+                "payment_method":"Cash"
+            },
+            {
+                "bill_id":"14445",
+                "bill_customer":"ZS Delhi",
+                "customer_contact":"90334444444",
+                "bill_agent":"KSE",
+                "bill_date":"14/02/2019",
+                "bill_total":"2399900",
+                "billed_by":"Ram",
+                "payment_method":"Cash/Card"
+            },
+            {
+                "bill_id":"14564",
+                "bill_customer":"ZS Aussie",
+                "bill_agent":"KSE",
+                "customer_contact":"90334444444",
+                "bill_date":"14/02/2039",
+                "bill_total":"2399900",
+                "billed_by":"Ram",
+                "payment_method":"Card"
+            }
+        ],
+        "pendingBills":[
+            {
+                "bill_id":"1234244",
+                "bill_customer":"ZS Pune",
+                "bill_agent":"KS",
+                "bill_date":"23/04/2019",
+                "bill_total":"230000",
+                "customer_contact":"90334444444",
+                "billed_by":"Ram hruday",
+                "payment_method":"Card"
+            },
+            {
+                "bill_id":"134445",
+                "bill_customer":"ZS Delhi",
+                "bill_agent":"KSE",
+                "bill_date":"14/02/2019",
+                "customer_contact":"90334444444",
+                "bill_total":"24500",
+                "billed_by":"Ram",
+                "payment_method":"Card"
+            },
+            {
+                "bill_id":"1445645",
+                "bill_customer":"ZS Delhi",
+                "customer_contact":"90334444444",
+                "bill_agent":"KSE",
+                "bill_date":"14/02/2019",
+                "bill_total":"24500",
+                "bill_paid":"23444",
+                "billed_by":"Ram",
+                "payment_method":"Card"
+            },
+            {
+                "bill_id":"144455",
+                "bill_customer":"ZS Delhi",
+                "customer_contact":"90334444444",
+                "bill_agent":"KSE",
+                "bill_date":"14/02/2019",
+                "bill_total":"24500",
+                "bill_paid":"234",
+                "billed_by":"Ram",
+                "payment_method":"Card"
+            },
+            {
+                "bill_id":"1445405",
+                "bill_customer":"ZS Delhi",
+                "bill_agent":"KSE",
+                "bill_date":"14/02/2019",
+                "bill_total":"24500",
+                "bill_paid":"234",
+                "customer_contact":"90334444444",
+                "billed_by":"Ram",
+                "payment_method":"Card"
+            },
+            {
+                "bill_id":"14467405",
+                "bill_customer":"ZS Delhi",
+                "bill_agent":"KSE",
+                "bill_date":"14/02/2019",
+                "bill_total":"24500",
+                "customer_contact":"90334444444",
+                "bill_paid":"234",
+                "billed_by":"Ram",
+                "payment_method":"Card",
+                "starred":true
+            },
+            {
+                "bill_id":"14440805",
+                "customer_contact":"90334444444",
+                "bill_customer":"ZS Delhi",
+                "bill_agent":"KSE",
+                "bill_date":"14/02/2019",
+                "bill_total":"24500",
+                "bill_paid":"234",
+                "billed_by":"Ram",
+                "payment_method":"Card"
+            },
+            {
+                "bill_id":"13444405",
+                "bill_customer":"ZS Delhi",
+                "customer_contact":"90334444444",
+                "bill_agent":"KSE",
+                "bill_date":"14/02/2019",
+                "bill_total":"24500",
+                "bill_paid":"234",
+                "billed_by":"Ram",
+                "payment_method":"Card"
+            }
+        ]
+    }
+}

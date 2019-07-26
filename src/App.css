@@ -1,33 +1,238 @@
-.App {
-  text-align: center;
+:root {
+  --themeColor: #ececec;
+  --fontColor: rgb(0, 0, 0);
+  --navTheme: rgb(236, 5, 5);
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif !important;
+  background: var(--themeColor) !important;
+  color: var(--fontColor) !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.nav-link {
+  font-size: 1.2rem;
+}
+
+.ReactTable .rt-thead .rt-tr {
+  text-align: left !important;
+}
+
+.panel-button {
+  font-size: 1.2rem !important;
+}
+
+.bg-dark i {
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.nav-pills .nav-link.active {
+  background: #343a40!important;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
+.nav-pills .nav-link {
+  color: var(--fontColor);
+  border-radius: 0 !important;
+}
+
+.logo {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.evenListItem {
+  /* background: rgba(189, 188, 188, 0.125) !important; */
+  /* border: 0 !important; */
+}
+
+.list-group-item {
+  border: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, .125);
+}
+
+.list-group-item {
+  transition: transform .5s;
+  cursor: pointer;
+}
+
+.list-group-item:after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 2s cubic-bezier(.165, .84, .44, 1);
+  content: '';
+  z-index: -1;
+}
+
+.list-group-item:hover {
+  transform: scale3d(1.06, 1.06, 1);
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .15);
+}
+
+.list-group-item i {
+  color: #9a9393;
+  padding: 0.4em;
+}
+
+.green {
+  color: #1ac11a;
+}
+
+.orange {
+  color: #f5bc52;
+}
+
+.blue {
+  color: #5353ca !important;
+}
+
+.yellow {
+  color: gold !important;
+}
+
+.bills-list-view {
+  height: 70vh;
+  overflow: auto;
+}
+
+.modal-body {
+  max-height: 70vh;
+  overflow: auto;
+}
+
+.rt-tbody {
+  max-height: 35vh;
+}
+
+.main-billing .rt-tbody {
+  max-height: 50vh !important;
+}
+
+.main-billing .rt-td {
+  overflow: visible !important;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
+  background-color: #f5f5f5;
+}
+
+::-webkit-scrollbar {
+  width: 5px !important;
+  background-color: #f5f5f5 !important;
+}
+
+::-webkit-scrollbar:horizontal {
+  height: 0.3em !important;
+}
+
+::-webkit-scrollbar-thumb {
+  /* border-radius: 10px !important; */
+  background-color: #5c5d5f !important;
+}
+
+*:hover::-webkit-scrollbar-thumb {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2) !important;
+  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2) !important;
+}
+
+.rt-td .form-control {
+  background-color: #eaeaea !important;
+  border: 0px solid #ced4da !important;
+}
+
+.center-text {
+  margin: 0 auto;
+}
+
+.h-100vh {
+  height: 100vh;
+}
+
+.inventory-modal .modal-body {
+  max-height: 80vh !important;
+}
+
+.tab-50 {
+  height: 50vh;
+}
+
+/* // skeleton styles */
+
+.skeleton {
+  background-color: #e0e0e0 !important;
+  padding: 1rem;
+  animation: shine 1s infinite;
+  background-image: linear-gradient(#d0d0d059 100%, transparent 0);
+  background-repeat: repeat-y;
+}
+
+@keyframes shine {
   to {
-    transform: rotate(360deg);
+    background-position: 100rem 0;
   }
+}
+
+/* color-classes */
+
+.warning {
+  color: #e6d709;
+}
+
+.full {
+  color: #1ac11a;
+}
+
+.danger {
+  color: #e73609;
+}
+
+/* font-sizes */
+
+.f-4 {
+  font-size: 4rem;
+}
+
+.blue-more {
+  color: blue !important;
+  cursor: pointer;
+}
+
+.border-card {
+  border: none !important;
+  border-bottom: 1px solid rgba(0, 0, 0, .125) !important;
+  color: #656363;
+  cursor: pointer;
+}
+
+.border-card:hover {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .15);
+}
+
+.dash-card {
+  box-shadow: -12px 20px 75px -37.5px rgba(0, 0, 0, 0.64);
+}
+
+.mainImage {
+  width: 100vw;
+  background-image: url(./assets/images/bapp.png);
+  background-position: initial;
+  background-size: cover;
+  position: relative;
+  height: 100%;
+}
+.login-card{
+  background-color: transparent;
+}
+.mt-5rem{
+  margin-top: 5rem;
+}
+.center-button{
+  text-align: -webkit-center;
 }

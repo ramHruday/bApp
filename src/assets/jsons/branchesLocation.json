@@ -1,0 +1,18 @@
+{
+    "status": "success",
+    "message": "success",
+    "data": {
+      "rows": [
+        {
+          "location_name": "Retail Shop",
+          "address":"Pune WTC ground floor",
+          "id": "main_location"
+        },
+        {
+          "location_name": "Godown",
+          "address":"Visakhapatnam ,Beach Road",
+          "id": "Godown_1"
+        }
+      ]
+    }
+  }

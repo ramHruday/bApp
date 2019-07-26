@@ -1,16 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <!--
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/29cf011061.js"></script>
+  <meta name="google-signin-client_id"
+    content="641516251219-kekpr5mukcgata3e860d564spss2la7m.apps.googleusercontent.com">
+  <!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <!-- <script type="text/javascript">
+    let cssUrl = '';
+    if (process.platform === 'linux') {
+      const execSync = require('child_process').execSync;
+      const theme = execSync('gsettings get org.gnome.desktop.interface gtk-theme').toString().toLowerCase()
+
+      if (theme.includes('adwaita')) {
+        cssUrl = 'adwaita.css'
+      } else if (theme.includes('arc')) {
+        cssUrl = 'arc.css'
+      } else if (theme.includes('OSC') || theme.includes('mac')) {
+        cssUrl = 'mac.css';
+      } else if (theme.includes('win')) {
+        cssUrl = 'win.css';
+      }
+
+    } else if (process.platform === 'darwin') {
+      cssUrl = 'mac.css';
+    } else if (process.platform === 'win32') {
+      cssUrl = 'win.css';
+    }
+    if (cssUrl) {
+      document.write('<link rel="stylesheet" type="text/css" href="./styles/' + cssUrl + '">');
+    }
+  </script> -->
+  <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
       Only files inside the `public` folder can be referenced from the HTML.
@@ -19,12 +50,20 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
+  <script>
+    window.onLoadCallback = function () {
+      gapi.auth2.init({
+        client_id: 'filler_text_for_client_id.apps.googleusercontent.com'
+      });
+    }
+  </script>
+  <title>bApp - Manage Your Business</title>
+</head>
+
+<body>
+  <!-- <noscript>You need to enable JavaScript to run this app.</noscript> -->
+  <div id="root"></div>
+  <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
 
@@ -34,5 +73,6 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-  </body>
+</body>
+
 </html>

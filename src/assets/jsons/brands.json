@@ -1,0 +1,22 @@
+{
+    "status": "success",
+    "message": "success",
+    "data": {
+      "rows": [
+        {
+          "brand_series": "Mylink",
+          "brand_rep":"Hruday",
+          "brand_contact":"9992348990",
+          "brand_name":"Legrand Ltd",
+          "brand_id": "Legrand_Mylink"
+        },
+        {
+          "brand_series": "Aero",
+          "brand_name":"Indoasian Pvt",
+          "brand_rep":"Ram",          
+          "brand_contact":"9992348990",
+          "brand_id": "Indoasian_Aero"
+        }
+      ]
+    }
+  }

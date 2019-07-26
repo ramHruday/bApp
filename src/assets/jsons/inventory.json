@@ -1,0 +1,40 @@
+{
+  "status": "success",
+  "message": "success",
+  "data": {
+    "rows": [
+      {
+        "location_name": "Shop",
+        "supplier_name": "Legrand Retail",
+        "sub_type": "2-way",
+        "product_name": "Switch",
+        "brand": "Legrand_Mylink",
+        "last_updated": "June 12, 2019",
+        "sub_details": "1089234",
+        "quantity": 23,
+        "mrp": 600,
+        "kpi": {
+          "min": 30,
+          "max": 73
+        },
+        "id": "Switch_2-way_Legrand"
+      },
+      {
+        "location_name": "Godown",
+        "supplier_name": "Indoasian Retail",
+        "sub_type": "2-pin",
+        "product_name": "Socket",
+        "brand": "Indoasian_Aero",
+        "last_updated": "June 12, 2019",
+        "quantity": 73,
+        "mrp": 500,
+        "kpi": {
+          "min": 50,
+          "max": 73
+        },
+        "sub_details": "089234",
+        "id": "Socket_2-pin_Indoasian"
+      }
+    ]
+  }
+}

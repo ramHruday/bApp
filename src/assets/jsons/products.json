@@ -1,0 +1,18 @@
+  {
+      "status": "success",
+      "message": "success",
+      "data": {
+        "rows": [
+          {
+            "sub_type": "2-way",
+            "product_name": "Switch",
+            "id": "Switch_2-way"
+          },
+          {
+            "sub_type": "2-pin",
+            "product_name": "Socket",
+            "id": "Socket_2-pin"
+          }
+        ]
+      }
+    }
