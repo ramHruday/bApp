@@ -15,7 +15,7 @@ export default class httpServiceLayer {
 
   constructor() {
     this.ax = axios.create({
-      baseURL: 'http://localhost:8080'
+      baseURL: 'https://bapp-be.herokuapp.com/'
     });
   }
   commonHttpPostService(URL, inputRequest) {
