@@ -44,8 +44,8 @@ export default class CrudModal extends Component {
             this.setState({
                 addModalShow: true,
                 deleteModal: false,
-                productName: this.props.modalData['data']['product_name'],
-                subType: this.props.modalData['data']['sub_type'],
+                productName: this.props.modalData['data']['name'],
+                subType: this.props.modalData['data']['subType'],
                 product_id: this.props.modalData['data']['product_id']
             });
         } else if (this.props.modalData['action'] === 'add') {
@@ -60,8 +60,8 @@ export default class CrudModal extends Component {
             this.setState({
                 addModalShow: false,
                 deleteModal: true,
-                productName: this.props.modalData['data']['product_name'],
-                subType: this.props.modalData['data']['sub_type'],
+                productName: this.props.modalData['data']['name'],
+                subType: this.props.modalData['data']['subType'],
                 product_id: this.props.modalData['data']['product_id']
             });
         }
@@ -69,9 +69,9 @@ export default class CrudModal extends Component {
     }
     addOrUpdateProduct() {
         let input = {};
-        input['product_name'] = this.state.productName;
-        input['sub_type'] = this.state.subType;
-        if(!input['product_name']){
+        input['name'] = this.state.productName;
+        input['subType'] = this.state.subType;
+        if(!input['name']){
             return;
         }
         let URL = 'ADD_PRODUCT'

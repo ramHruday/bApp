@@ -7,6 +7,8 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import jsPDF from 'jspdf';
 import LocationCrudModal from './LocationCrudModal';
+import { API } from '../config/config';
+
 
 export default class Location extends Component {
     constructor(props) {
@@ -51,11 +53,17 @@ export default class Location extends Component {
         this.services = new httpServiceLayer();
     }
     componentDidMount() {
-        this.getProducts();
+        this.getLocations();
     }
-    getProducts() {
-        this.setState({
-            locationRows: this.services.jsonFetch('branchLocation')['data']['rows']
+    getLocations() {
+        this.services.commonHttpGetService(API.GET_LOCATIONS).then((response) => {
+            if (response && response.data) {
+                this.setState({
+                    locationRows: response.data.result
+                })
+            } else {
+                console.log('error', response)
+            }
         })
     }
     openModal(action, data) {
@@ -75,6 +83,7 @@ export default class Location extends Component {
         })
     }
     handleClose() {
+        this.getLocations();
         this.setState({
             CrudModalShow: false,
             modalPassData: {}
@@ -140,7 +149,7 @@ export default class Location extends Component {
                 <Row>
                     <Col md="12" lg="12" sm="12" className="p-0">
                         {
-                            this.state && this.state.locationRows && this.state.locationRows.length &&
+                            this.state && this.state.locationRows  &&
                             <div> {tabularDataConst()} </div >
                         }
                     </Col>

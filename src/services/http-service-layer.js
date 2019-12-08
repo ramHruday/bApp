@@ -15,19 +15,36 @@ export default class httpServiceLayer {
 
   constructor() {
     this.ax = axios.create({
-      baseURL: 'https://bapp-be.herokuapp.com/'
+      baseURL: 'https://bapp-be.herokuapp.com/bApp/services'
     });
   }
   commonHttpPostService(URL, inputRequest) {
     try {
-      return this.ax.post(URL, inputRequest)
-        .catch((error) => {
-          this.handleError(error);
-        });
+      try {
+        return this.ax.post(URL, inputRequest);
+      }
+      catch (error) {
+        this.handleError(error);
+      }
     } catch (error) {
       console.log(error)
     }
   }
+
+  commonHttpGetService(URL) {
+    try {
+      try {
+        return this.ax.get(URL);
+      }
+      catch (error) {
+        this.handleError(error);
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+
   handleError(error) {
     try {
       console.log("got a error ", error);

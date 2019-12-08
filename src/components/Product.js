@@ -27,12 +27,12 @@ export default class Product extends Component {
         };
         this.columns = [
             {
-                "accessor": "product_name",
+                "accessor": "name",
                 "filterable": true,
                 "Header": "Name"
             },
             {
-                "accessor": "sub_type",
+                "accessor": "subType",
                 "filterable": true,
                 "Header": "Sub type"
             },
@@ -60,10 +60,10 @@ export default class Product extends Component {
     getProducts() {
         let input = {};
         try {
-            this.services.commonHttpPostService(API.GET_PRODUCTS, input).then((response) => {
+            this.services.commonHttpGetService(API.GET_PRODUCTS).then((response) => {
                 if (response && response.data) {
                     this.setState({
-                        productsRows: response.data.data
+                        productsRows: response.data.result
                     })
                 } else {
                     console.log('error', response)

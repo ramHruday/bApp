@@ -6,6 +6,8 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import jsPDF from 'jspdf';
 import SupplierCrudModal from './SupplierCrudModal';
+import { API } from '../config/config';
+
 
 
 export default class Supplier extends Component {
@@ -55,9 +57,19 @@ export default class Supplier extends Component {
         this.getSuppliers();
     }
     getSuppliers() {
-        this.setState({
-            supplierRows: this.services.jsonFetch('suppliers')['data']['rows']
-        })
+        try {
+            this.services.commonHttpGetService(API.GET_SUPPLIERS).then((response) => {
+                if (response && response.data) {
+                    this.setState({
+                        supplierRows: response.data.result
+                    })
+                } else {
+                    console.log('error', response)
+                }
+            })
+        } catch (error) {
+
+        }
     }
     openModal(action, data) {
         let obj = {};
@@ -76,6 +88,7 @@ export default class Supplier extends Component {
         })
     }
     handleClose() {
+        this.getSuppliers()
         this.setState({
             CrudModalShow: false,
             modalPassData: {}
@@ -98,20 +111,20 @@ export default class Supplier extends Component {
                         bodyContent[i].push(bodyData[this.columns[j].accessor]);
                     } else if (typeof bodyData[this.columns[j].accessor] === 'object') {
                         bodyContent[i].push(this.convertObjectValuesToArray(bodyData[this.columns[j].accessor]).join(','));
-                    }else if(Array.isArray(bodyData[this.columns[j].accessor])){
-                        bodyContent[i].push(bodyData[this.columns[j].accessor].join(','));                        
+                    } else if (Array.isArray(bodyData[this.columns[j].accessor])) {
+                        bodyContent[i].push(bodyData[this.columns[j].accessor].join(','));
                     }
                 }
             }
         }
         this.doc.autoTable({
-            styles: {minCellWidth: 20},
-            headStyles:{},
-            margin: {top: 10},
+            styles: { minCellWidth: 20 },
+            headStyles: {},
+            margin: { top: 10 },
             head: [headerContent],
             body: bodyContent
         });
-        const name = 'Suppliers-' + new Date().toLocaleDateString() +'.pdf';
+        const name = 'Suppliers-' + new Date().toLocaleDateString() + '.pdf';
         this.doc.setProperties({
             title: 'Suppliers',
             author: 'user',
@@ -142,7 +155,7 @@ export default class Supplier extends Component {
                 <Row>
                     <Col md="12" lg="12" sm="12" className="p-0">
                         {
-                            this.state && this.state.supplierRows && this.state.supplierRows.length &&
+                            this.state && this.state.supplierRows &&
                             <div> {tabularDataConst()} </div >
                         }
                     </Col>

@@ -109,11 +109,10 @@ export default class Inventory extends Component {
         this.setState({ tableData: this.services.jsonFetch('inventory')['data']['rows'] });
     }
     getProducts() {
-        let input = {};
         try {
-            this.services.commonHttpPostService(API.GET_PRODUCTS, input).then((response) => {
+            this.services.commonHttpGetService(API.GET_PRODUCTS).then((response) => {
                 if (response && response.data) {
-                    this.FormatProducts(response.data.data);
+                    this.formatProductsForSelect(response.data.result);
                 } else {
                     console.log('error', response)
                 }
@@ -123,36 +122,75 @@ export default class Inventory extends Component {
         }
 
     }
-    FormatProducts(products) {
+    getSuppliers() {
+        try {
+            this.services.commonHttpGetService(API.GET_SUPPLIERS).then((response) => {
+                if (response && response.data) {
+                    this.formatSuppliersForSelect(response.data.result);
+                } else {
+                    console.log('error', response)
+                }
+            })
+        } catch (error) {
+
+        }
+
+    }
+    getLocations() {
+        try {
+            this.services.commonHttpGetService(API.GET_LOCATIONS).then((response) => {
+                if (response && response.data) {
+                    this.formatLocationsForSelect(response.data.result);
+                } else {
+                    console.log('error', response)
+                }
+            })
+        } catch (error) {
+
+        }
+    }
+    getBrands() {
+        try {
+            this.services.commonHttpGetService(API.GET_BRANDS).then((response) => {
+                if (response && response.data) {
+                    this.formatBrandsForSelect(response.data.result);
+                } else {
+                    console.log('error', response)
+                }
+            })
+        } catch (error) {
+
+        }
+    }
+
+    formatProductsForSelect(products) {
         let temporaryProducts = [];
         const productsList = products
         for (let i = 0; i < productsList.length; i++) {
             const product = productsList[i];
             let obj = {};
             obj['value'] = product['product_id'];
-            obj['label'] = product['product_name'] + ' → ' + product['sub_type'];
+            obj['label'] = product['name'] + ' → ' + product['subType'];
             // obj['sub_type'] = product['sub_type'];
             temporaryProducts.push(obj);
         }
         this.setState({ products: temporaryProducts });
-
     }
-    getLocations() {
-        let temporaryProducts = [];
-        const productsList = this.services.jsonFetch('branchLocation')['data']['rows'];
-        for (let i = 0; i < productsList.length; i++) {
-            const product = productsList[i];
+
+    formatLocationsForSelect(locationList) {
+        let temporaryLocations = [];
+        for (let i = 0; i < locationList.length; i++) {
+            const product = locationList[i];
             let obj = {};
             obj['value'] = product['id'];
             obj['label'] = product['location_name'];
-            temporaryProducts.push(obj);
+            temporaryLocations.push(obj);
         }
-        this.setState({ locations: temporaryProducts });
-
+        this.setState({ locations: temporaryLocations });
     }
-    getSuppliers() {
+
+    formatSuppliersForSelect(suppliers) {
         let temporarySuppliers = [];
-        const suppliers = this.services.jsonFetch('suppliers')['data']['rows'];
         for (let i = 0; i < suppliers.length; i++) {
             const product = suppliers[i];
             let obj = {};
@@ -163,9 +201,8 @@ export default class Inventory extends Component {
         this.setState({ suppliers: temporarySuppliers });
 
     }
-    getBrands() {
+    formatBrandsForSelect(brands) {
         let temporaryBrands = [];
-        const brands = this.services.jsonFetch('getBrands')['data']['rows'];
         for (let i = 0; i < brands.length; i++) {
             const brand = brands[i];
             let obj = {};

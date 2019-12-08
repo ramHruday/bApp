@@ -38,13 +38,13 @@ export default class Billing extends Component {
         };
         this.columns = [
             {
-                "accessor": "product_name",
+                "accessor": "name",
                 "filterable": true,
                 "Header": "Name"
             },
             {
                 "filterable": true,
-                "accessor": "sub_type",
+                "accessor": "subType",
                 "Header": "Sub type"
             },
             {

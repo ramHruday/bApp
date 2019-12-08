@@ -25,7 +25,7 @@ export default class BillingPanel extends Component {
         };
         this.columns = [
             {
-                "accessor": "product_name",
+                "accessor": "name",
                 "filterable": true,
                 "Header": "Name",
                 Cell: this.renderInventoryProductEditable
@@ -106,7 +106,7 @@ export default class BillingPanel extends Component {
     renderInventoryProductEditable(cellInfo) {
         cellInfo['row']['selectedItemInventory'] = {};
         cellInfo['row']['selectedItemInventory']['value'] = cellInfo['row']['id'];
-        cellInfo['row']['selectedItemInventory']['label'] = cellInfo['row']['product_name'] + ' → ' + cellInfo['original']['sub_type'];
+        cellInfo['row']['selectedItemInventory']['label'] = cellInfo['row']['name'] + ' → ' + cellInfo['original']['subType'];
         const customStyles = {
             control: (base, state) => ({
                 ...base,

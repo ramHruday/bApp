@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import jsPDF from 'jspdf';
 import BrandsCrudModal from './BrandsCrudModal';
+import { API } from '../config/config';
 
 
 export default class Brands extends Component {
@@ -31,7 +32,7 @@ export default class Brands extends Component {
                 "accessor": "brand_name",
                 "filterable": true,
                 "Header": "Brand"
-            },            
+            },
             {
                 "accessor": "brand_rep",
                 "filterable": true,
@@ -56,11 +57,18 @@ export default class Brands extends Component {
         this.services = new httpServiceLayer();
     }
     componentDidMount() {
-        this.getProducts();
+        this.getBrands();
     }
-    getProducts() {
-        this.setState({
-            brandRows: this.services.jsonFetch('getBrands')['data']['rows']
+    getBrands() {
+
+        this.services.commonHttpGetService(API.GET_BRANDS).then((response) => {
+            if (response && response.data) {
+                this.setState({
+                    brandRows: response.data.result
+                })
+            } else {
+                console.log('error', response)
+            }
         })
     }
     openModal(action, data) {
@@ -80,6 +88,7 @@ export default class Brands extends Component {
         })
     }
     handleClose() {
+        this.getBrands();
         this.setState({
             CrudModalShow: false,
             modalPassData: {}
@@ -102,20 +111,20 @@ export default class Brands extends Component {
                         bodyContent[i].push(bodyData[this.columns[j].accessor]);
                     } else if (typeof bodyData[this.columns[j].accessor] === 'object') {
                         bodyContent[i].push(this.convertObjectValuesToArray(bodyData[this.columns[j].accessor]).join(','));
-                    }else if(Array.isArray(bodyData[this.columns[j].accessor])){
-                        bodyContent[i].push(bodyData[this.columns[j].accessor].join(','));                        
+                    } else if (Array.isArray(bodyData[this.columns[j].accessor])) {
+                        bodyContent[i].push(bodyData[this.columns[j].accessor].join(','));
                     }
                 }
             }
         }
         this.doc.autoTable({
-            styles: {minCellWidth: 20},
-            headStyles:{},
-            margin: {top: 10},
+            styles: { minCellWidth: 20 },
+            headStyles: {},
+            margin: { top: 10 },
             head: [headerContent],
             body: bodyContent
         });
-        const name = 'Brands-' + new Date().toLocaleDateString() +'.pdf';
+        const name = 'Brands-' + new Date().toLocaleDateString() + '.pdf';
         this.doc.setProperties({
             title: 'Brands',
             author: 'user',
@@ -145,7 +154,7 @@ export default class Brands extends Component {
                 <Row>
                     <Col md="12" lg="12" sm="12" className="p-0">
                         {
-                            this.state && this.state.brandRows && this.state.brandRows.length &&
+                            this.state && this.state.brandRows &&
                             <div> {tabularDataConst()} </div >
                         }
                     </Col>
