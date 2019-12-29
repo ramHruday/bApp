@@ -26,18 +26,18 @@ export default class Inventory extends Component {
         };
         this.columns = [
             {
-                "accessor": "product_name",
+                "accessor": "name",
                 "filterable": true,
                 "Header": "Name"
             },
             {
                 "filterable": true,
-                "accessor": "sub_type",
+                "accessor": "subType",
                 "Header": "Sub type"
             },
             {
                 "filterable": true,
-                "accessor": "supplier_name",
+                "accessor": "supplier",
                 "Header": "Supplier"
             },
             {
@@ -47,17 +47,15 @@ export default class Inventory extends Component {
             },
             {
                 "filterable": true,
-                "accessor": "last_updated",
-                "Header": "Last Updated"
+                "accessor": "updated_at",
+                "Header": "Last Updated",
+                Cell: data => {
+                    return data.value ? new Date(data.value).toDateString() : null;
+                },
             },
             {
                 "filterable": true,
-                "accessor": "sub_details",
-                "Header": "Id/Product Code"
-            },
-            {
-                "filterable": true,
-                "accessor": "brand",
+                "accessor": "brand_name",
                 "Header": "Brand"
             },
             {
@@ -76,7 +74,7 @@ export default class Inventory extends Component {
                 "Header": "KPI",
                 Cell: data => {
                     let output = [];
-                    output = [data.value.min, data.value.max];
+                    output = data.value;
                     return output.join(' => ');
                 },
             },
@@ -106,7 +104,20 @@ export default class Inventory extends Component {
         this.getBrands();
     }
     getInventory() {
-        this.setState({ tableData: this.services.jsonFetch('inventory')['data']['rows'] });
+        // this.setState({ tableData: this.services.jsonFetch('inventory')['data']['rows'] });
+        try {
+            this.services.commonHttpGetService(API.GET_INVENTORY).then((response) => {
+                if (response && response.data) {
+                    this.setState({
+                        tableData: response.data.result
+                    })
+                } else {
+                    console.log('error', response)
+                }
+            })
+        } catch (error) {
+
+        }
     }
     getProducts() {
         try {
@@ -182,7 +193,7 @@ export default class Inventory extends Component {
         for (let i = 0; i < locationList.length; i++) {
             const product = locationList[i];
             let obj = {};
-            obj['value'] = product['id'];
+            obj['value'] = product['location_id'];
             obj['label'] = product['location_name'];
             temporaryLocations.push(obj);
         }
@@ -194,7 +205,7 @@ export default class Inventory extends Component {
         for (let i = 0; i < suppliers.length; i++) {
             const product = suppliers[i];
             let obj = {};
-            obj['value'] = product['id'];
+            obj['value'] = product['supplier_id'];
             obj['label'] = product['supplier'];
             temporarySuppliers.push(obj);
         }
@@ -218,6 +229,7 @@ export default class Inventory extends Component {
             CrudModalShow: false,
             modalPassData: {}
         })
+        this.getInventory()
     }
     // handleShow() {
     //     this.setState({ addModalShow: true });

@@ -58,7 +58,6 @@ export default class Product extends Component {
         this.getProducts();
     }
     getProducts() {
-        let input = {};
         try {
             this.services.commonHttpGetService(API.GET_PRODUCTS).then((response) => {
                 if (response && response.data) {

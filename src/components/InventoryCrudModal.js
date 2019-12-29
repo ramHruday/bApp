@@ -7,11 +7,15 @@ import Row from 'react-bootstrap/Row';
 import Select from 'react-select';
 import httpServiceLayer from '../services/http-service-layer';
 import InputRange from 'react-input-range';
+import { API } from '../config/config';
+
 
 
 export default class InventoryCrudModal extends Component {
     constructor(props) {
         super(props);
+        this.addOrUpdateInventory = this.addOrUpdateInventory.bind(this);
+        this.deleteInventory = this.deleteInventory.bind(this);
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.kpiForNow = 100;
@@ -26,10 +30,7 @@ export default class InventoryCrudModal extends Component {
                 selectedBrand: null,
                 quantity: undefined,
                 mrp: null,
-                kpi: {
-                    min: 0,
-                    max: 50
-                },
+                kpi: [0, 50],
                 id: null
             },
             products: [],
@@ -42,16 +43,15 @@ export default class InventoryCrudModal extends Component {
     componentDidMount() {
         this.handleShow();
     }
-    getInventoryItemById() {
-        const storedItem = this.services.jsonFetch('getInventoryItem')['data'];
+    getInventoryItemById(storedItem) {
         let objItem = {
             selectedProduct: {
                 value: storedItem['product_id'],
-                label: storedItem['product_name'] + ' → ' + storedItem['sub_type'],
+                label: storedItem['name'] + ' → ' + storedItem['subType'],
             },
             selectedSupplier: {
                 value: storedItem['supplier_id'],
-                label: storedItem['supplier_name'],
+                label: storedItem['supplier'],
             },
             selectedLocation: {
                 value: storedItem['location_id'],
@@ -65,9 +65,9 @@ export default class InventoryCrudModal extends Component {
             quantity: storedItem['quantity'],
             kpi: storedItem['kpi'],
             mrp: storedItem['mrp'],
-            id: storedItem['id'],
+            id: storedItem['inventory_id'],
         }
-        this.kpiForNow = storedItem['kpi'].max;
+        this.kpiForNow = storedItem['kpi'][1] ? storedItem['kpi'][1] : 0;
         this.setState({ selectedItem: objItem });
     }
     handleClose() {
@@ -90,6 +90,7 @@ export default class InventoryCrudModal extends Component {
     };
     handleChangeSupplierSelect = selectedSupplier => {
         var newSelected = Object.assign({}, this.state.selectedItem);
+        console.log(selectedSupplier)
         newSelected.selectedSupplier = selectedSupplier;
         this.setState({
             selectedItem: newSelected
@@ -111,35 +112,35 @@ export default class InventoryCrudModal extends Component {
     };
     handleChangeMrp = mrp => {
         var newSelected = Object.assign({}, this.state.selectedItem);
-        newSelected.mrp = mrp;
+        newSelected.mrp = mrp.target.value;
         this.setState({
             selectedItem: newSelected
         });
     }
     handleChangeQuantity = quantity => {
         var newSelected = Object.assign({}, this.state.selectedItem);
-        newSelected.quantity = quantity;
+        newSelected.quantity = quantity.target.value;
         this.setState({
             selectedItem: newSelected
         });
     }
     handleKPIChange = kpi => {
         var newSelected = Object.assign({}, this.state.selectedItem);
-        newSelected.kpi = kpi;
+        newSelected.kpi = [kpi.min, kpi.max];
         this.setState({
             selectedItem: newSelected
         });
     }
     handleMinKpi = min => {
         var newSelected = Object.assign({}, this.state.selectedItem);
-        newSelected.kpi.min = min.target.value;
+        newSelected.kpi[0] = min.target.value;
         this.setState({
             selectedItem: newSelected
         });
     }
     handleMaxKpi = max => {
         var newSelected = Object.assign({}, this.state.selectedItem);
-        newSelected.kpi.max = max.target.value;
+        newSelected.kpi[1] = max.target.value;
         this.setState({
             selectedItem: newSelected
         });
@@ -154,7 +155,7 @@ export default class InventoryCrudModal extends Component {
                 locations: this.props.modalData['locations'],
                 brands: this.props.modalData['brands'],
             });
-            this.getInventoryItemById();
+            this.getInventoryItemById(this.props.modalData['data']);
         } else if (this.props.modalData['action'] === 'add') {
             this.setState({
                 addModalShow: true,
@@ -169,9 +170,53 @@ export default class InventoryCrudModal extends Component {
                 addModalShow: false,
                 deleteModal: true,
             });
-            this.getInventoryItemById();
+            this.getInventoryItemById(this.props.modalData['data']);
         }
         console.log(this.props);
+    }
+
+    addOrUpdateInventory() {
+        let input = {};
+        console.log(this.state.selectedItem);
+        input['product_id'] = this.state.selectedItem.selectedProduct.value;
+        input['supplier_id'] = this.state.selectedItem.selectedSupplier.value;
+        input['brand_id'] = this.state.selectedItem.selectedBrand.value;
+        input['location_id'] = this.state.selectedItem.selectedLocation.value;
+        input['kpi'] = this.state.selectedItem.kpi;
+        input['mrp'] = this.state.selectedItem.mrp;
+        input['quantity'] = this.state.selectedItem.quantity;
+
+        let URL = 'ADD_INVENTORY'
+        if (this.props.modalData['action'] === 'edit') {
+            URL = 'UPDATE_INVENTORY';
+            input['inventory_id'] = this.state.selectedItem.id;
+        }
+        try {
+            this.services.commonHttpPostService(API[URL], input).then((response) => {
+                if (response && response.data) {
+                    this.handleClose();
+                } else {
+                    console.log('error', response)
+                }
+            })
+        } catch (error) {
+
+        }
+    }
+    deleteInventory() {
+        let input = {};
+        input['inventory_id'] = this.state.selectedItem.id;
+        try {
+            this.services.commonHttpPostService(API.DELETE_INVENTORY, input).then((response) => {
+                if (response && response.data) {
+                    this.handleClose();
+                } else {
+                    console.log('error', response)
+                }
+            })
+        } catch (error) {
+
+        }
     }
     render() {
         return (
@@ -248,17 +293,17 @@ export default class InventoryCrudModal extends Component {
                                         maxValue={Number(this.kpiForNow) * 4}
                                         minValue={0}
                                         formatLabel={value => `${value}`}
-                                        value={this.state.selectedItem.kpi}
+                                        value={{ min: this.state.selectedItem.kpi[0], max: this.state.selectedItem.kpi[1] }}
                                         onChange={this.handleKPIChange} />
                                 </Col>
-                                    <Form.Label column sm="2"></Form.Label>
-                                    <Col sm="4">
-                                        <Form.Control type="number" min="0" value={this.state.selectedItem.kpi.min} placeholder="KPI min value" onChange={this.handleMinKpi.bind(this)} />
-                                    </Col>
-                                    <Form.Label column sm="2"></Form.Label>
-                                    <Col sm="4">
-                                        <Form.Control type="number" min="0" value={this.state.selectedItem.kpi.max} placeholder="KPI max value" onChange={this.handleMaxKpi.bind(this)} />
-                                    </Col>
+                                <Form.Label column sm="2"></Form.Label>
+                                <Col sm="4">
+                                    <Form.Control type="number" min="0" value={this.state.selectedItem.kpi[0]} placeholder="KPI min value" onChange={this.handleMinKpi.bind(this)} />
+                                </Col>
+                                <Form.Label column sm="2"></Form.Label>
+                                <Col sm="4">
+                                    <Form.Control type="number" min="0" value={this.state.selectedItem.kpi[1]} placeholder="KPI max value" onChange={this.handleMaxKpi.bind(this)} />
+                                </Col>
                             </Form.Group>
                         </Form>
                     </Modal.Body>
@@ -266,8 +311,9 @@ export default class InventoryCrudModal extends Component {
                         <Button variant="secondary" onClick={this.handleClose}>
                             Close
                         </Button>
-                        <Button variant="primary" onClick={this.handleClose}>
-                            Save Changes
+                        <Button variant="primary" onClick={this.addOrUpdateInventory}>
+                            {this.props.modalData['action'] === 'edit' ? <span>Save Changes</span> : <span>Add</span>
+                            }
                         </Button>
                     </Modal.Footer>
                 </Modal>
@@ -278,13 +324,13 @@ export default class InventoryCrudModal extends Component {
                         <Modal.Title>{this.props.modalData['title']}</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        Are You sure to delete <b>{this.state.selectedItem.id}</b> ?
+                        Are You sure to delete <b>{`${this.state.selectedItem.id}`}</b> ?
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={this.handleClose}>
                             Cancel
                         </Button>
-                        <Button variant="primary" onClick={this.handleClose}>
+                        <Button variant="primary" onClick={this.deleteInventory}>
                             Confirm
                         </Button>
                     </Modal.Footer>

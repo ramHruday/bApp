@@ -10,7 +10,6 @@
         "product_name": "Switch",
         "brand": "Legrand_Mylink",
         "last_updated": "June 12, 2019",
-        "sub_details": "1089234",
         "quantity": 23,
         "mrp": 600,
         "kpi": {
@@ -32,7 +31,6 @@
           "min": 50,
           "max": 73
         },
-        "sub_details": "089234",
         "id": "Socket_2-pin_Indoasian"
       }
     ]

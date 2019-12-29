@@ -18,5 +18,10 @@ export const API = {
     ADD_BRAND: '/createBrand',
     GET_BRANDS: '/getBrands',
     UPDATE_BRAND: '/updateBrand',
-    DELETE_BRAND: '/deleteBrand'
+    DELETE_BRAND: '/deleteBrand',
+    // inventory crud apis 
+    ADD_INVENTORY: '/createInventory',
+    GET_INVENTORY: '/getInventory',
+    UPDATE_INVENTORY: '/updateInventory',
+    DELETE_INVENTORY: '/deleteInventory'
 };
