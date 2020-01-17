@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import httpServiceLayer from '../services/http-service-layer';
 import ReactTable from 'react-table';
 import Select from 'react-select';
+import { API } from '../config/config';
+
 // import Form from 'react-bootstrap/Form';
 
 
@@ -32,7 +34,7 @@ export default class BillingPanel extends Component {
             },
             {
                 "filterable": true,
-                "accessor": "brand",
+                "accessor": "brand_name",
                 "Header": "Brand",
                 Cell: this.renderBrandEditable
 
@@ -87,7 +89,7 @@ export default class BillingPanel extends Component {
                     <div>
                         {this.state.theBill.length - 1 === row.index &&
                             <button className="btn btn-sm action" title="Add" onClick={() => this.addRowInBill(row)}><i class="fas fa-plus"></i></button>}
-                        <button className="btn btn-sm action" title="Clear" onClick={() => this.clearUp(row)}><i class="fas fa-times-circle"></i></button>                        
+                        <button className="btn btn-sm action" title="Clear" onClick={() => this.clearUp(row)}><i class="fas fa-times-circle"></i></button>
                         {this.state.theBill.length !== 1 &&
                             <button className="btn btn-sm action" title="Add" onClick={() => this.deleteRowInBill(row)}><i class="far fa-trash-alt"></i></button>}
                     </div>
@@ -101,11 +103,10 @@ export default class BillingPanel extends Component {
         this.getInventoryForSelect();
         // const { handle } = this.props.match.params
         // this.getAllBills();
-        this.getDummyBill();
     }
     renderInventoryProductEditable(cellInfo) {
         cellInfo['row']['selectedItemInventory'] = {};
-        cellInfo['row']['selectedItemInventory']['value'] = cellInfo['row']['id'];
+        cellInfo['row']['selectedItemInventory']['value'] = cellInfo['row']['inventory_id'];
         cellInfo['row']['selectedItemInventory']['label'] = cellInfo['row']['name'] + ' → ' + cellInfo['original']['subType'];
         const customStyles = {
             control: (base, state) => ({
@@ -142,19 +143,19 @@ export default class BillingPanel extends Component {
                 className="form-control"
                 placeholder="Select Inventory"
                 value={cellInfo.row['selectedItemInventory']}
-                onChange={(e) => this.handleChangeItemSelect(cellInfo, e)}
+                onChange={(e) => this.handleChangeItemSelect(cellInfo.index, e)}
                 options={this.state.inventory}
             />
         );
     }
     renderBrandEditable(cellInfo) {
         return (
-            <input className="form-control" type="text" value={this.state.theBill[cellInfo.index].brand} onChange={(e) => this.handleChangeBrand(cellInfo, e)} />
+            <input className="form-control" type="text" value={this.state.theBill[cellInfo.index].brand_name} onChange={(e) => this.handleChangeBrand(cellInfo, e)} />
         );
     }
     handleChangeBrand(cellInfo, e) {
         let cloneBill = this.state.theBill;
-        cloneBill[cellInfo.index].brand = e.target.value;
+        cloneBill[cellInfo.index].brand_name = e.target.value;
         this.setState({
             theBill: cloneBill
         })
@@ -207,13 +208,14 @@ export default class BillingPanel extends Component {
         return amount;
     }
 
-    handleChangeItemSelect(cellInfo, selectedItemInventory) {
-        cellInfo['row']['selectedItemInventory'] = selectedItemInventory;
+    handleChangeItemSelect(index, selectedItemInventory) {
+        // cellInfo['row']['selectedItemInventory'] = selectedItemInventory; need to know this
         const cloneBill = [...this.state.theBill];
         if (!selectedItemInventory['discount']) {
             selectedItemInventory['discount'] = 0
         }
-        cloneBill[cellInfo.index] = selectedItemInventory;
+        cloneBill[index] = selectedItemInventory;
+        cloneBill[index].amount = this.calculateAmount(cloneBill[index].mrp, cloneBill[index].quantity, cloneBill[index].discount);
         this.setState({
             theBill: cloneBill
         })
@@ -224,7 +226,7 @@ export default class BillingPanel extends Component {
             theBill: jsonResponse,
         })
     }
-    getDummyBill() {
+    getDummyBill(firstInventoryItem) {
         let dummy = [{
             "sub_type": "",
             "product_name": "",
@@ -234,7 +236,7 @@ export default class BillingPanel extends Component {
             "mrp": 0,
             "discount": 0,
             "amount": 0,
-            "inventory_id": undefined
+            "inventory_id": firstInventoryItem['inventory_id']
         }]
         this.setState({
             theBill: dummy,
@@ -274,26 +276,39 @@ export default class BillingPanel extends Component {
             theBill: cloneBill
         })
     }
-    deleteRowInBill(row){
+    deleteRowInBill(row) {
         let cloneBill = [...this.state.theBill];
-        cloneBill.splice(row.index,1);
+        cloneBill.splice(row.index, 1);
         this.setState({
             theBill: cloneBill
         })
     }
     getInventoryForSelect() {
         let temporaryInventory = [];
-        const inventoryList = this.services.jsonFetch('inventory')['data']['rows'];
-        for (let i = 0; i < inventoryList.length; i++) {
-            const storedItem = inventoryList[i];
-            let obj = {};
-            obj = storedItem;
-            obj['value'] = storedItem['id'];
-            obj['label'] = storedItem['product_name'] + ' → ' + storedItem['sub_type'];
-            temporaryInventory.push(obj);
+        try {
+            this.services.commonHttpGetService(API.GET_INVENTORY).then((response) => {
+                if (response && response.data) {
+                    const inventoryList = response.data.result
+                    for (let i = 0; i < inventoryList.length; i++) {
+                        const storedItem = inventoryList[i];
+                        let obj = {};
+                        obj = storedItem;
+                        obj['value'] = storedItem['inventory_id'];
+                        obj['label'] = storedItem['name'] + ' → ' + storedItem['subType'];
+                        temporaryInventory.push(obj);
+                        this.handleChangeItemSelect(i,obj)
+                    }
+                    // this.getDummyBill(temporaryInventory[0]);
+                } else {
+                    console.log('error', response)
+                }
+            })
+        } catch (error) {
+
         }
         this.setState({ inventory: temporaryInventory });
     }
+
     render() {
         const tabularBillConst = () => {
             return (
@@ -301,7 +316,7 @@ export default class BillingPanel extends Component {
                     data={this.state.theBill}
                     columns={this.columns}
                     showPagination={false}
-                    defaultPageSize={this.state.theBill.length +25}
+                    defaultPageSize={this.state.theBill.length + 25}
                     className="main-billing"
                     defaultFilterMethod={(filter, row) => { return row[filter.id].toString().toLowerCase().includes(filter.value.toString().toLowerCase()) }}
                 />
@@ -309,10 +324,7 @@ export default class BillingPanel extends Component {
         }
         return (
             <div className="p-3 container-fluid">
-                {
-                    this.state.theBill.length > 0 &&
-                    <div> {tabularBillConst()} </div>
-                }
+                <div> {tabularBillConst()} </div>
             </div>
         )
     }

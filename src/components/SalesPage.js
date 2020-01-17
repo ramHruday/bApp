@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
+import Card from 'react-bootstrap/Card';
 // import httpServiceLayer from '../services/http-service-layer';
 import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Card from 'react-bootstrap/Card';
-import upImage from '../assets/images/up.png'
 // import ReactEcharts from 'echarts-for-react';
 
 export default class SalesPage extends Component {

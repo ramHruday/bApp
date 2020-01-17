@@ -6,12 +6,13 @@
   <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/29cf011061.js"></script>
-  <meta name="google-signin-client_id"
-    content="641516251219-kekpr5mukcgata3e860d564spss2la7m.apps.googleusercontent.com">
+  <!-- <meta name="google-signin-client_id"
+    content="641516251219-kekpr5mukcgata3e860d564spss2la7m.apps.googleusercontent.com"> -->
   <!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
-  <script data-ad-client="ca-pub-3571041866046322" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script data-ad-client="ca-pub-3571041866046322" async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
   <!-- <script type="text/javascript">
     let cssUrl = '';
     if (process.platform === 'linux') {
@@ -56,6 +57,21 @@
       gapi.auth2.init({
         client_id: 'filler_text_for_client_id.apps.googleusercontent.com'
       });
+    }
+  </script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('worker.js').then(function (registration) {
+          console.log('Worker registration successful', registration.scope);
+        }, function (err) {
+          console.log('Worker registration failed', err);
+        }).catch(function (err) {
+          console.log(err);
+        });
+      });
+    } else {
+      console.log('Service Worker is not supported by browser.');
     }
   </script>
   <title>bApp - Manage Your Business</title>
