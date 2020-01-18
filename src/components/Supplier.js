@@ -140,7 +140,7 @@ export default class Supplier extends Component {
                     data={this.state.supplierRows}
                     columns={this.columns}
                     pageSizeOptions={[5, 10, 20, 50, 100]}
-                    defaultPageSize={11}
+                    defaultPageSize={20}
                     showFilters={true}
                     defaultFilterMethod={(filter, row) => { return row[filter.id].toLowerCase().includes(filter.value.toLowerCase()) }}
                 />

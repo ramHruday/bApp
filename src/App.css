@@ -105,9 +105,9 @@ body {
   overflow: auto;
 }
 
-.rt-tbody {
+/* .rt-tbody {
   max-height: 35vh;
-}
+} */
 
 .main-billing .rt-tbody {
   max-height: 50vh !important;

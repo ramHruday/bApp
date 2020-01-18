@@ -140,7 +140,7 @@ export default class Brands extends Component {
                     data={this.state.brandRows}
                     columns={this.columns}
                     pageSizeOptions={[5, 10, 20, 50, 100]}
-                    defaultPageSize={11}
+                    defaultPageSize={20}
                     defaultFilterMethod={(filter, row) => { return row[filter.id].toLowerCase().includes(filter.value.toLowerCase()) }}
                 />
             );

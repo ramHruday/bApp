@@ -235,6 +235,17 @@ export default class InventoryCrudModal extends Component {
                                     </Col>
                                 </Form.Group>
                             } */}
+                              <Form.Group as={Row} className="pb-3">
+                                <Form.Label column sm="4">Brand Series/Model</Form.Label>
+                                <Col sm="8">
+                                    <Select
+                                        value={this.state.selectedItem.selectedBrand}
+                                        onChange={this.handleChangeBrandSelect}
+                                        options={this.state.brands}
+                                        isDisabled={this.props.modalData['action'] === 'add' ? false : true}
+                                    />
+                                </Col>
+                            </Form.Group>
                             <Form.Group as={Row} className="pb-3" >
                                 <Form.Label column sm="4">Product Name</Form.Label>
                                 <Col sm="8">
@@ -266,16 +277,7 @@ export default class InventoryCrudModal extends Component {
                                     />
                                 </Col>
                             </Form.Group>
-                            <Form.Group as={Row} className="pb-3">
-                                <Form.Label column sm="4">Brand</Form.Label>
-                                <Col sm="8">
-                                    <Select
-                                        value={this.state.selectedItem.selectedBrand}
-                                        onChange={this.handleChangeBrandSelect}
-                                        options={this.state.brands}
-                                    />
-                                </Col>
-                            </Form.Group>
+                          
                             <Form.Group as={Row} className="pb-3">
                                 <Form.Label column sm="2">MRP</Form.Label>
                                 <Col sm="4">

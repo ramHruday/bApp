@@ -135,7 +135,7 @@ export default class Location extends Component {
                     data={this.state.locationRows}
                     columns={this.columns}
                     pageSizeOptions={[5, 10, 20, 50, 100]}
-                    defaultPageSize={11}
+                    defaultPageSize={10}
                     defaultFilterMethod={(filter, row) => { return row[filter.id].toLowerCase().includes(filter.value.toLowerCase()) }}
                 />
             );

@@ -26,58 +26,73 @@ export default class Inventory extends Component {
         };
         this.columns = [
             {
-                "accessor": "name",
+                "accessor": "brand_series",
                 "filterable": true,
-                "Header": "Name"
-            },
-            {
-                "filterable": true,
-                "accessor": "subType",
-                "Header": "Sub type"
-            },
-            {
-                "filterable": true,
-                "accessor": "supplier",
-                "Header": "Supplier"
-            },
-            {
-                "filterable": true,
-                "accessor": "location_name",
-                "Header": "Location"
-            },
-            {
-                "filterable": true,
-                "accessor": "updated_at",
-                "Header": "Last Updated",
-                Cell: data => {
-                    return data.value ? new Date(data.value).toDateString() : null;
-                },
+                "Header": "Brand-series/Model"
             },
             {
                 "filterable": true,
                 "accessor": "brand_name",
-                "Header": "Brand"
+                "Header": "Brand",
+                "width": 150,
+            },
+            {
+                "accessor": "name",
+                "filterable": true,
+                "Header": "Product",
+                Cell: data => {
+                    console.log(data);
+                    return `${data.original.name} → ${data.original.subType}`;
+                },
+
             },
             {
                 "filterable": true,
+                "accessor": "supplier",
+                "Header": "Supplier",
+                "width": 150,
+
+            },
+
+            {
+                "filterable": true,
+                "accessor": "location_name",
+                "Header": "Location",
+                "width": 150,
+
+            },
+            // {
+            //     "filterable": true,
+            //     "accessor": "updated_at",
+            //     "Header": "Last Updated",
+            //     Cell: data => {
+            //         return data.value ? new Date(data.value).toDateString() : null;
+            //     },
+            // },
+            {
+                "filterable": true,
                 "accessor": "quantity",
-                "Header": "Qty"
+                "Header": "Qty",
+                "width": 150,
+
             },
             {
                 "filterable": true,
                 "accessor": "mrp",
-                "Header": "MRP"
+                "Header": "MRP",
+                "width": 150,
+
             },
-            {
-                "filterable": true,
-                "accessor": "kpi",
-                "Header": "KPI",
-                Cell: data => {
-                    let output = [];
-                    output = data.value;
-                    return output.join(' => ');
-                },
-            },
+            // {
+            //     "filterable": true,
+            //     "accessor": "kpi",
+            //     "Header": "KPI",
+            //     Cell: data => {
+            //         let output = [];
+            //         output = data.value;
+            //         return output.join(' => ');
+            //     },
+            // },
             {
                 "accessor": "action",
                 Header: () => (
@@ -90,7 +105,9 @@ export default class Inventory extends Component {
                         <button className="btn btn-sm action" title="Edit" onClick={() => this.openModal('edit', row['original'])}><i className="fas fa-pen"></i></button>
                         <button className="btn btn-sm action" title="Delete" onClick={() => this.openModal('delete', row['original'])}><i className="fas fa-trash"></i></button>
                     </div>
-                )
+                ),
+                "width": 100,
+
             }
         ]
         this.services = new httpServiceLayer();
@@ -271,20 +288,20 @@ export default class Inventory extends Component {
                         bodyContent[i].push(bodyData[this.columns[j].accessor]);
                     } else if (typeof bodyData[this.columns[j].accessor] === 'object') {
                         bodyContent[i].push(this.convertObjectValuesToArray(bodyData[this.columns[j].accessor]).join(','));
-                    }else if(Array.isArray(bodyData[this.columns[j].accessor])){
-                        bodyContent[i].push(bodyData[this.columns[j].accessor].join(','));                        
+                    } else if (Array.isArray(bodyData[this.columns[j].accessor])) {
+                        bodyContent[i].push(bodyData[this.columns[j].accessor].join(','));
                     }
                 }
             }
         }
         this.doc.autoTable({
-            styles: {minCellWidth: 20},
-            headStyles:{},
-            margin: {top: 10},
+            styles: { minCellWidth: 20 },
+            headStyles: {},
+            margin: { top: 10 },
             head: [headerContent],
             body: bodyContent
         });
-        const name = 'Inventory-' + new Date().toLocaleDateString() +'.pdf';
+        const name = 'Inventory-' + new Date().toLocaleDateString() + '.pdf';
         this.doc.setProperties({
             title: 'Inventory',
             author: 'user',
@@ -298,7 +315,7 @@ export default class Inventory extends Component {
         var keys = Object.keys(obj);
         keys.forEach(function (key) {
             var value = obj[key]
-                array.push(value)
+            array.push(value)
         })
         return array;
     }
@@ -309,7 +326,7 @@ export default class Inventory extends Component {
                     data={this.state.tableData}
                     columns={this.columns}
                     pageSizeOptions={[5, 10, 20, 50, 100]}
-                    defaultPageSize={11}
+                    defaultPageSize={20}
                     showFilters={true}
                     defaultFilterMethod={(filter, row) => { return row[filter.id].toString().toLowerCase().includes(filter.value.toString().toLowerCase()) }}
                 />
